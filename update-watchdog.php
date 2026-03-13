@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Update Watchdog
- * Plugin URI:  https://github.com/wp-watchdog/wp-watchdog
+ * Plugin URI:  https://github.com/Designer-Solutions/update-watchdog
  * Description: Monitors the availability of updates for WordPress plugins, themes, and core. Exposes results in the admin panel and via a REST API secured with a Bearer token.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Designer Solutions sp. z o.o.
- * Author URI:  https://github.com/wp-watchdog
+ * Author URI:  https://github.com/Designer-Solutions
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: update-watchdog
@@ -35,21 +35,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'UPDATE_WATCHDOG_VERSION', '1.0.0' );
-define( 'UPDATE_WATCHDOG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'UPDATE_WATCHDOG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'UPDAWA_VERSION', '1.0.1' );
+define( 'UPDAWA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'UPDAWA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-require_once UPDATE_WATCHDOG_PLUGIN_DIR . 'includes/class-update-watchdog-updater.php';
-require_once UPDATE_WATCHDOG_PLUGIN_DIR . 'includes/class-update-watchdog-admin.php';
-require_once UPDATE_WATCHDOG_PLUGIN_DIR . 'includes/class-update-watchdog-api.php';
+require_once UPDAWA_PLUGIN_DIR . 'includes/class-updawa-updater.php';
+require_once UPDAWA_PLUGIN_DIR . 'includes/class-updawa-admin.php';
+require_once UPDAWA_PLUGIN_DIR . 'includes/class-updawa-api.php';
 
 
-function update_watchdog_init() {
-	$updater = new Update_Watchdog_Updater();
-	$admin   = new Update_Watchdog_Admin( $updater );
-	$api     = new Update_Watchdog_API( $updater );
+function updawa_init() {
+	$updater = new Updawa_Updater();
+	$admin   = new Updawa_Admin( $updater );
+	$api     = new Updawa_API( $updater );
 
 	$admin->init();
 	$api->init();
 }
-add_action( 'plugins_loaded', 'update_watchdog_init' );
+add_action( 'plugins_loaded', 'updawa_init' );

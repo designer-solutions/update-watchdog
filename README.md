@@ -1,10 +1,10 @@
 # Update Watchdog
 
 **Tags:** updates, monitoring, rest api, security, maintenance
-**Requires at least:** WordPress 6.0
-**Tested up to:** WordPress 6.9
+**Requires at least:** 6.0
+**Tested up to:** 6.9
 **Requires PHP:** 7.0
-**Stable tag:** 1.0.0
+**Stable tag:** 1.0.1
 **License:** GPL-2.0-or-later
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,12 +84,7 @@ Open the **Token API** tab and click **Regenerate token**. The old token becomes
 
 ## Changelog
 
+### 1.0.1
+- Fixed regulatory compliance issues.
 ### 1.0.0
 - Initial release.
-
----
-
-## Upgrade Notice
-
-### 1.0.0
-Initial release — no upgrade steps required.
