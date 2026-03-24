@@ -28,24 +28,24 @@ class Updawa_Admin {
 	}
 
 	public function enqueue_scripts( $hook ) {
-		if ( 'toplevel_page_update-watchdog' !== $hook ) {
+		if ( 'toplevel_page_updawa' !== $hook ) {
 			return;
 		}
 		wp_enqueue_script(
 			'qrcodejs',
 			UPDAWA_PLUGIN_URL . 'assets/js/qrcode.min.js',
 			array(),
-			'1.0.1',
+			'1.0.2',
 			true
 		);
 	}
 
 	public function register_menu() {
 		add_menu_page(
-			__( 'Update Watchdog', 'update-watchdog' ),
-			__( 'Watchdog', 'update-watchdog' ),
+			__( 'UpdaWa - the update watchdog', 'updawa' ),
+			__( 'UpdaWa - the update watchdog', 'updawa' ),
 			'manage_options',
-			'update-watchdog',
+			'updawa',
 			array( $this, 'render_page' ),
 			'dashicons-visibility',
 			80
@@ -66,20 +66,20 @@ class Updawa_Admin {
 
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Update Watchdog', 'update-watchdog' ); ?></h1>
+			<h1><?php esc_html_e( 'UpdaWa', 'updawa' ); ?></h1>
 
 			<nav class="nav-tab-wrapper">
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=update-watchdog&tab=table' ) ); ?>"
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=updawa&tab=table' ) ); ?>"
 				   class="nav-tab <?php echo 'table' === $active_tab ? 'nav-tab-active' : ''; ?>">
-					<?php esc_html_e( 'Status', 'update-watchdog' ); ?>
+					<?php esc_html_e( 'Status', 'updawa' ); ?>
 				</a>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=update-watchdog&tab=json' ) ); ?>"
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=updawa&tab=json' ) ); ?>"
 				   class="nav-tab <?php echo 'json' === $active_tab ? 'nav-tab-active' : ''; ?>">
-					<?php esc_html_e( 'JSON', 'update-watchdog' ); ?>
+					<?php esc_html_e( 'JSON', 'updawa' ); ?>
 				</a>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=update-watchdog&tab=token' ) ); ?>"
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=updawa&tab=token' ) ); ?>"
 				   class="nav-tab <?php echo 'token' === $active_tab ? 'nav-tab-active' : ''; ?>">
-					<?php esc_html_e( 'Token API', 'update-watchdog' ); ?>
+					<?php esc_html_e( 'Token API', 'updawa' ); ?>
 				</a>
 			</nav>
 
@@ -119,7 +119,7 @@ class Updawa_Admin {
 		$status = $this->updater->get_status();
 		?>
 		<p class="description">
-			<?php esc_html_e( 'An overview of all installed plugins, themes, and WordPress core — showing current versions and whether updates are available. Rows highlighted in yellow require attention.', 'update-watchdog' ); ?>
+			<?php esc_html_e( 'An overview of all installed plugins, themes, and WordPress core — showing current versions and whether updates are available. Rows highlighted in yellow require attention.', 'updawa' ); ?>
 		</p>
 
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -128,20 +128,20 @@ class Updawa_Admin {
 			<input type="hidden" name="return_tab" value="table">
 			<p>
 				<button type="submit" class="button button-secondary">
-					<?php esc_html_e( 'Refresh', 'update-watchdog' ); ?>
+					<?php esc_html_e( 'Refresh', 'updawa' ); ?>
 				</button>
 			</p>
 		</form>
 
-		<p><strong><?php esc_html_e( 'Generated:', 'update-watchdog' ); ?></strong> <?php echo esc_html( $this->format_datetime( $status['generated_at'] ) ); ?></p>
+		<p><strong><?php esc_html_e( 'Generated:', 'updawa' ); ?></strong> <?php echo esc_html( $this->format_datetime( $status['generated_at'] ) ); ?></p>
 
-		<h3><?php esc_html_e( 'WordPress (core)', 'update-watchdog' ); ?></h3>
+		<h3><?php esc_html_e( 'WordPress (core)', 'updawa' ); ?></h3>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Current version', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Update available', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'New version', 'update-watchdog' ); ?></th>
+					<th><?php esc_html_e( 'Current version', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Update available', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'New version', 'updawa' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -149,9 +149,9 @@ class Updawa_Admin {
 					<td><?php echo esc_html( $status['wordpress']['current_version'] ); ?></td>
 					<td>
 						<?php if ( $status['wordpress']['update_available'] ) : ?>
-							<span style="color: #d63638;">&#10007; <?php esc_html_e( 'Yes', 'update-watchdog' ); ?></span>
+							<span style="color: #d63638;">&#10007; <?php esc_html_e( 'Yes', 'updawa' ); ?></span>
 						<?php else : ?>
-							<span style="color: #00a32a;">&#10003; <?php esc_html_e( 'No', 'update-watchdog' ); ?></span>
+							<span style="color: #00a32a;">&#10003; <?php esc_html_e( 'No', 'updawa' ); ?></span>
 						<?php endif; ?>
 					</td>
 					<td><?php echo $status['wordpress']['new_version'] ? esc_html( $status['wordpress']['new_version'] ) : '&ndash;'; ?></td>
@@ -159,16 +159,16 @@ class Updawa_Admin {
 			</tbody>
 		</table>
 
-		<h3><?php esc_html_e( 'Plugins', 'update-watchdog' ); ?></h3>
+		<h3><?php esc_html_e( 'Plugins', 'updawa' ); ?></h3>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Name', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Slug', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Version', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Update', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'New version', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Active', 'update-watchdog' ); ?></th>
+					<th><?php esc_html_e( 'Name', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Slug', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Version', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Update', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'New version', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Active', 'updawa' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -179,30 +179,30 @@ class Updawa_Admin {
 					<td><?php echo esc_html( $plugin['current_version'] ); ?></td>
 					<td>
 						<?php if ( $plugin['update_available'] ) : ?>
-							<span style="color: #d63638;">&#10007; <?php esc_html_e( 'Yes', 'update-watchdog' ); ?></span>
+							<span style="color: #d63638;">&#10007; <?php esc_html_e( 'Yes', 'updawa' ); ?></span>
 						<?php else : ?>
-							<span style="color: #00a32a;">&#10003; <?php esc_html_e( 'No', 'update-watchdog' ); ?></span>
+							<span style="color: #00a32a;">&#10003; <?php esc_html_e( 'No', 'updawa' ); ?></span>
 						<?php endif; ?>
 					</td>
 					<td><?php echo $plugin['new_version'] ? esc_html( $plugin['new_version'] ) : '&ndash;'; ?></td>
 					<td>
-						<?php echo $plugin['active'] ? esc_html__( 'Yes', 'update-watchdog' ) : esc_html__( 'No', 'update-watchdog' ); ?>
+						<?php echo $plugin['active'] ? esc_html__( 'Yes', 'updawa' ) : esc_html__( 'No', 'updawa' ); ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
 		</table>
 
-		<h3><?php esc_html_e( 'Themes', 'update-watchdog' ); ?></h3>
+		<h3><?php esc_html_e( 'Themes', 'updawa' ); ?></h3>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Name', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Slug', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Version', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Update', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'New version', 'update-watchdog' ); ?></th>
-					<th><?php esc_html_e( 'Active', 'update-watchdog' ); ?></th>
+					<th><?php esc_html_e( 'Name', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Slug', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Version', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Update', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'New version', 'updawa' ); ?></th>
+					<th><?php esc_html_e( 'Active', 'updawa' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -213,14 +213,14 @@ class Updawa_Admin {
 					<td><?php echo esc_html( $theme['current_version'] ); ?></td>
 					<td>
 						<?php if ( $theme['update_available'] ) : ?>
-							<span style="color: #d63638;">&#10007; <?php esc_html_e( 'Yes', 'update-watchdog' ); ?></span>
+							<span style="color: #d63638;">&#10007; <?php esc_html_e( 'Yes', 'updawa' ); ?></span>
 						<?php else : ?>
-							<span style="color: #00a32a;">&#10003; <?php esc_html_e( 'No', 'update-watchdog' ); ?></span>
+							<span style="color: #00a32a;">&#10003; <?php esc_html_e( 'No', 'updawa' ); ?></span>
 						<?php endif; ?>
 					</td>
 					<td><?php echo $theme['new_version'] ? esc_html( $theme['new_version'] ) : '&ndash;'; ?></td>
 					<td>
-						<?php echo $theme['active'] ? esc_html__( 'Yes', 'update-watchdog' ) : esc_html__( 'No', 'update-watchdog' ); ?>
+						<?php echo $theme['active'] ? esc_html__( 'Yes', 'updawa' ) : esc_html__( 'No', 'updawa' ); ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
@@ -237,7 +237,7 @@ class Updawa_Admin {
 		$json   = wp_json_encode( $status, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 		?>
 		<p class="description">
-			<?php esc_html_e( 'The raw update-status data as JSON — useful for debugging or copying into external tools.', 'update-watchdog' ); ?>
+			<?php esc_html_e( 'The raw update-status data as JSON — useful for debugging or copying into external tools.', 'updawa' ); ?>
 		</p>
 
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -246,7 +246,7 @@ class Updawa_Admin {
 			<input type="hidden" name="return_tab" value="json">
 			<p>
 				<button type="submit" class="button button-secondary">
-					<?php esc_html_e( 'Refresh', 'update-watchdog' ); ?>
+					<?php esc_html_e( 'Refresh', 'updawa' ); ?>
 				</button>
 			</p>
 		</form>
@@ -282,18 +282,18 @@ class Updawa_Admin {
 		);
 		?>
 		<p class="description">
-			<?php esc_html_e( 'Manage the Bearer token used to authenticate REST API requests. Scan the QR code to import connection details into a monitoring app.', 'update-watchdog' ); ?>
+			<?php esc_html_e( 'Manage the Bearer token used to authenticate REST API requests. Scan the QR code to import connection details into a monitoring app.', 'updawa' ); ?>
 		</p>
 
 		<?php if ( $regenerated ) : ?>
 			<div class="notice notice-warning is-dismissible">
-				<p><?php esc_html_e( 'Token regenerated. The previous token is no longer valid.', 'update-watchdog' ); ?></p>
+				<p><?php esc_html_e( 'Token regenerated. The previous token is no longer valid.', 'updawa' ); ?></p>
 			</div>
 		<?php endif; ?>
 
 		<table class="form-table" role="presentation">
 			<tr>
-				<th scope="row"><?php esc_html_e( 'Current token', 'update-watchdog' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Current token', 'updawa' ); ?></th>
 				<td>
 					<input type="text"
 					       readonly
@@ -301,7 +301,7 @@ class Updawa_Admin {
 					       style="width: 600px; font-family: monospace; font-size: 13px;"
 					       onclick="this.select();" />
 					<p class="description">
-						<?php esc_html_e( 'Click to select. Use the token in the HTTP header: Authorization: Bearer {TOKEN}', 'update-watchdog' ); ?>
+						<?php esc_html_e( 'Click to select. Use the token in the HTTP header: Authorization: Bearer {TOKEN}', 'updawa' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -313,21 +313,21 @@ class Updawa_Admin {
 			<p>
 				<button type="submit"
 				        class="button button-secondary"
-				        onclick="return confirm('<?php echo esc_js( __( 'Are you sure you want to regenerate the token? The previous token will stop working immediately.', 'update-watchdog' ) ); ?>');">
-					<?php esc_html_e( 'Regenerate token', 'update-watchdog' ); ?>
+				        onclick="return confirm('<?php echo esc_js( __( 'Are you sure you want to regenerate the token? The previous token will stop working immediately.', 'updawa' ) ); ?>');">
+					<?php esc_html_e( 'Regenerate token', 'updawa' ); ?>
 				</button>
 			</p>
 		</form>
 
-		<h3><?php esc_html_e( 'QR Code', 'update-watchdog' ); ?></h3>
+		<h3><?php esc_html_e( 'QR Code', 'updawa' ); ?></h3>
 		<p class="description">
-			<?php esc_html_e( 'The QR code contains: site name, site URL, and API token.', 'update-watchdog' ); ?>
+			<?php esc_html_e( 'The QR code contains: site name, site URL, and API token.', 'updawa' ); ?>
 		</p>
-		<div id="update-watchdog-qr" style="margin: 15px 0; display: inline-block;"></div>
+		<div id="updawa-qr" style="margin: 15px 0; display: inline-block;"></div>
 		<script>
 		document.addEventListener( 'DOMContentLoaded', function () {
 			var size = Math.floor( window.innerHeight / 3 );
-			new QRCode( document.getElementById( 'update-watchdog-qr' ), {
+			new QRCode( document.getElementById( 'updawa-qr' ), {
 				text: <?php echo wp_json_encode( $qr_data ); ?>,
 				width: size,
 				height: size,
@@ -338,9 +338,9 @@ class Updawa_Admin {
 		} );
 		</script>
 
-		<h3><?php esc_html_e( 'Example REST API call', 'update-watchdog' ); ?></h3>
+		<h3><?php esc_html_e( 'Example REST API call', 'updawa' ); ?></h3>
 		<pre style="background: #f0f0f1; padding: 15px; border-left: 4px solid #0073aa; overflow-x: auto; font-size: 13px;">curl -H "Authorization: Bearer <?php echo esc_html( $token ); ?>" \
-     <?php echo esc_url( rest_url( 'update-watchdog/v1/status' ) ); ?></pre>
+     <?php echo esc_url( rest_url( 'updawa/v1/status' ) ); ?></pre>
 		<?php
 	}
 
@@ -349,7 +349,7 @@ class Updawa_Admin {
 	 */
 	public function handle_regenerate_token() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions.', 'update-watchdog' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions.', 'updawa' ) );
 		}
 
 		check_admin_referer( 'updawa_regenerate_token', 'updawa_regenerate_nonce' );
@@ -357,7 +357,7 @@ class Updawa_Admin {
 		$token = $this->generate_token();
 		update_option( self::TOKEN_OPTION, $token );
 
-		wp_safe_redirect( admin_url( 'admin.php?page=update-watchdog&tab=token&regenerated=1' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=updawa&tab=token&regenerated=1' ) );
 		exit;
 	}
 
@@ -366,7 +366,7 @@ class Updawa_Admin {
 	 */
 	public function handle_refresh() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions.', 'update-watchdog' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions.', 'updawa' ) );
 		}
 
 		check_admin_referer( 'updawa_refresh', 'updawa_refresh_nonce' );
@@ -374,7 +374,7 @@ class Updawa_Admin {
 		$this->updater->force_refresh();
 
 		$return_tab = ( isset( $_POST['return_tab'] ) && 'json' === $_POST['return_tab'] ) ? 'json' : 'table';
-		wp_safe_redirect( admin_url( 'admin.php?page=update-watchdog&tab=' . $return_tab ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=updawa&tab=' . $return_tab ) );
 		exit;
 	}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Registers and handles the REST API endpoint /wp-json/update-watchdog/v1/status.
+ * Registers and handles the REST API endpoint /wp-json/updawa/v1/status.
  * Authorization via header: Authorization: Bearer {TOKEN}
  *
  * @package WP_Watchdog
@@ -25,7 +25,7 @@ class Updawa_API {
 
 	public function register_routes() {
 		register_rest_route(
-			'update-watchdog/v1',
+			'updawa/v1',
 			'/status',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -36,7 +36,7 @@ class Updawa_API {
 	}
 
 	/**
-	 * Callback for GET /wp-json/update-watchdog/v1/status permissions
+	 * Callback for GET /wp-json/updawa/v1/status permissions
 	 *
 	 * @param WP_REST_Request $request
 	 * @return true|WP_Error
@@ -53,7 +53,7 @@ class Updawa_API {
 		if ( empty( $auth_header ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Missing Authorization header.', 'update-watchdog' ),
+				__( 'Missing Authorization header.', 'updawa' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -61,7 +61,7 @@ class Updawa_API {
 		if ( ! preg_match( '/^Bearer\s+(\S+)$/i', $auth_header, $matches ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Invalid Authorization header format. Expected: Bearer {TOKEN}', 'update-watchdog' ),
+				__( 'Invalid Authorization header format. Expected: Bearer {TOKEN}', 'updawa' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -72,7 +72,7 @@ class Updawa_API {
 		if ( empty( $stored_token ) || ! is_string( $stored_token ) || ! hash_equals( $stored_token, $provided_token ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Invalid token.', 'update-watchdog' ),
+				__( 'Invalid token.', 'updawa' ),
 				array( 'status' => 401 )
 			);
 		}
@@ -81,7 +81,7 @@ class Updawa_API {
 	}
 
 	/**
-	 * Callback for GET /wp-json/update-watchdog/v1/status
+	 * Callback for GET /wp-json/updawa/v1/status
 	 *
 	 * @param WP_REST_Request $request
 	 * @return WP_REST_Response|WP_Error
@@ -97,7 +97,7 @@ class Updawa_API {
         } catch ( Exception $e ) {
 			return new WP_Error(
 				'internal_error',
-				__( 'Internal error while fetching update data.', 'update-watchdog' ),
+				__( 'Internal error while fetching update data.', 'updawa' ),
 				array( 'status' => 500 )
 			);
 		}

@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Update Watchdog
+ * Plugin Name: UpdaWa
  * Plugin URI:  https://github.com/Designer-Solutions/update-watchdog
  * Description: Monitors the availability of updates for WordPress plugins, themes, and core. Exposes results in the admin panel and via a REST API secured with a Bearer token.
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      Designer Solutions sp. z o.o.
  * Author URI:  https://github.com/Designer-Solutions
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: update-watchdog
+ * Text Domain: updawa
  * Domain Path: /languages
  * Requires at least: 6.0
  * Tested up to: 6.9
@@ -16,7 +16,7 @@
  */
 
 /*
- * Update Watchdog – WordPress update monitor
+ * UpdaWa – WordPress update monitor
  * Copyright (C) 2024  Designer Solutions sp. z o.o.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'UPDAWA_VERSION', '1.0.1' );
+define( 'UPDAWA_VERSION', '1.0.2' );
 define( 'UPDAWA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'UPDAWA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 

@@ -1,10 +1,10 @@
-# Update Watchdog
+# UpdaWa - the update watchdog
 
 **Tags:** updates, monitoring, rest api, security, maintenance
 **Requires at least:** 6.0
 **Tested up to:** 6.9
 **Requires PHP:** 7.0
-**Stable tag:** 1.0.1
+**Stable tag:** 1.0.2
 **License:** GPL-2.0-or-later
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,10 +14,10 @@ Monitors the availability of updates for WordPress plugins, themes, and core via
 
 ## Description
 
-Update Watchdog keeps track of pending updates for your WordPress installation and makes that information available in two ways:
+UpdaWa keeps track of pending updates for your WordPress installation and makes that information available in two ways:
 
-- **Admin dashboard** – a dedicated Watchdog menu item shows the current update status as a formatted JSON view or an HTML table (plugins, themes, WordPress core).
-- **REST API endpoint** – `GET /wp-json/update-watchdog/v1/status` returns the same data as JSON, protected by a per-site Bearer token that you generate and manage from the admin panel.
+- **Admin dashboard** – a dedicated UpdaWa menu item shows the current update status as a formatted JSON view or an HTML table (plugins, themes, WordPress core).
+- **REST API endpoint** – `GET /wp-json/updawa/v1/status` returns the same data as JSON, protected by a per-site Bearer token that you generate and manage from the admin panel.
 
 ### Features
 
@@ -34,7 +34,7 @@ Update Watchdog keeps track of pending updates for your WordPress installation a
 The endpoint is read-only and requires a valid Bearer token:
 
 ```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" https://example.com/wp-json/update-watchdog/v1/status
+curl -H "Authorization: Bearer YOUR_TOKEN" https://example.com/wp-json/updawa/v1/status
 ```
 
 The response is a JSON object with keys `generated_at`, `wordpress`, `plugins`, and `themes`.
@@ -43,9 +43,9 @@ The response is a JSON object with keys `generated_at`, `wordpress`, `plugins`, 
 
 ## Installation
 
-1. Upload the `update-watchdog` folder to `/wp-content/plugins/`.
+1. Upload the `updawa` folder to `/wp-content/plugins/`.
 2. Activate the plugin through the **Plugins** screen in WordPress.
-3. Go to **Watchdog** in the admin sidebar.
+3. Go to **UpdaWa** in the admin sidebar.
 4. Open the **Token API** tab to find or regenerate your API token.
 
 ---
@@ -83,6 +83,9 @@ Open the **Token API** tab and click **Regenerate token**. The old token becomes
 ---
 
 ## Changelog
+
+### 1.0.2
+- Change plugin name to UpdaWa because Update Watchdog is too similar to existing ones
 
 ### 1.0.1
 - Fixed regulatory compliance issues.
