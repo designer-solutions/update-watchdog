@@ -29,12 +29,77 @@ class Updawa_Updater {
 	 * @return array
 	 */
 	public function get_status() {
-		return array(
+		$data = array(
 			'generated_at' => ( new DateTime() )->format( DateTime::ATOM ),
 			'wordpress'    => $this->get_core_status(),
 			'plugins'      => $this->get_plugins_status(),
 			'themes'       => $this->get_themes_status(),
 		);
+
+		$ssl_expiry = $this->get_ssl_expiry();
+		if ( null !== $ssl_expiry ) {
+			$data['ssl_expires_at'] = $ssl_expiry;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Returns the SSL certificate expiry date for the site, or null if not on HTTPS
+	 * or the certificate cannot be retrieved.
+	 *
+	 * @return string|null ISO 8601 date string, or null.
+	 */
+	private function get_ssl_expiry() {
+		$site_url = get_site_url();
+		if ( 0 !== strpos( $site_url, 'https://' ) ) {
+			return null;
+		}
+
+		if ( ! function_exists( 'openssl_x509_parse' ) ) {
+			return null;
+		}
+
+		$host    = wp_parse_url( $site_url, PHP_URL_HOST );
+		$context = stream_context_create( array(
+			'ssl' => array(
+				'capture_peer_cert' => true,
+				'verify_peer'       => true,
+				'verify_peer_name'  => true,
+			),
+		) );
+
+		$socket = @stream_socket_client(
+			'ssl://' . $host . ':443',
+			$errno,
+			$errstr,
+			10,
+			STREAM_CLIENT_CONNECT,
+			$context
+		);
+
+		if ( ! $socket ) {
+			return null;
+		}
+
+		$params = stream_context_get_params( $socket );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- WP_Filesystem has no SSL socket equivalent; fclose() is the only way to release the stream.
+		fclose( $socket );
+
+		$cert_resource = isset( $params['options']['ssl']['peer_certificate'] )
+			? $params['options']['ssl']['peer_certificate']
+			: null;
+
+		if ( ! $cert_resource ) {
+			return null;
+		}
+
+		$cert_info = openssl_x509_parse( $cert_resource );
+		if ( ! $cert_info || empty( $cert_info['validTo_time_t'] ) ) {
+			return null;
+		}
+
+		return ( new DateTime( '@' . $cert_info['validTo_time_t'] ) )->format( DateTime::ATOM );
 	}
 
 	/**
