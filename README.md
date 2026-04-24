@@ -1,16 +1,14 @@
 # UpdaWa — Update Watchdog
 
-**Tags:** updates, monitoring, rest api, security, ssl, maintenance  
+**Tags:** updates, monitoring, rest api, security, maintenance  
 **Requires at least:** 6.0  
 **Tested up to:** 6.9  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.0.3  
+**Stable tag:** 1.0.5  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
 Monitors WordPress core, plugin, theme, and SSL certificate status via a clean admin dashboard and a Bearer-token-secured REST API.
-
----
 
 ## Description
 
@@ -32,51 +30,29 @@ UpdaWa gives you a single place to see everything that needs attention on a Word
 
 The endpoint is read-only and requires a valid Bearer token:
 
-```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" \
-     https://example.com/wp-json/updawa/v1/status
-```
+    curl -H "Authorization: Bearer YOUR_TOKEN" \
+         https://example.com/wp-json/updawa/v1/status
 
 Example response:
 
-```json
-{
-  "generated_at": "2026-04-14T09:10:41+00:00",
-  "wordpress": {
-    "current_version": "6.9.4",
-    "update_available": false,
-    "new_version": null,
-    "package_url": null
-  },
-  "plugins": [ ... ],
-  "themes":  [ ... ],
-  "ssl_expires_at": "2026-07-05T01:48:00+00:00"
-}
-```
-
----
+    {
+      "generated_at": "2026-04-14T09:10:41+00:00",
+      "wordpress": {
+        "current_version": "6.9.4",
+        "update_available": false,
+        "new_version": null,
+        "package_url": null
+      },
+      "plugins": [ ... ],
+      "themes":  [ ... ],
+      "ssl_expires_at": "2026-07-05T01:48:00+00:00"
+    }
 
 ## Screenshots
 
-### Status tab
-
-![Status tab](assets/images/Updawa-status.png)
-
-An overview of WordPress core, SSL certificate, plugins, and themes — with stat cards at the top and colour-coded badges in each section.
-
-### JSON tab
-
-![JSON tab](assets/images/Updawa-json.png)
-
-The full API payload displayed as formatted text, with a one-click Copy button.
-
-### Token API tab
-
-![Token API tab](assets/images/Updawa-token.png)
-
-Manage your Bearer token, regenerate it, copy the example curl command, and scan the QR code for mobile access.
-
----
+1. Manage your Bearer token, regenerate it, copy the example curl command, and scan the QR code for mobile access.
+2. An overview of WordPress core, SSL certificate, plugins, and themes — with stat cards at the top and colour-coded badges in each section.
+3. The full API payload displayed as formatted text, with a one-click Copy button.
 
 ## Installation
 
@@ -120,6 +96,12 @@ An Android app for consuming UpdaWa data is under development. It will let you m
 ---
 
 ## Changelog
+
+### 1.0.5
+- Fixed false positive update notifications for plugins and themes.
+
+### 1.0.4
+- Fixed empty "More Info" modal in the WordPress plugin directory.
 
 ### 1.0.3
 - New modern admin UI with stat cards, colour-coded badges, and card-based layout.

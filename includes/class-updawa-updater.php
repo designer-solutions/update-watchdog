@@ -162,10 +162,15 @@ class Updawa_Updater {
 			$package_url      = null;
 
 			if ( $update_data && isset( $update_data->response[ $plugin_file ] ) ) {
-				$plugin_update    = $update_data->response[ $plugin_file ];
-				$update_available = true;
-				$new_version      = isset( $plugin_update->new_version ) ? $plugin_update->new_version : null;
-				$package_url      = isset( $plugin_update->package ) ? $plugin_update->package : null;
+				$plugin_update = $update_data->response[ $plugin_file ];
+				$new_version   = isset( $plugin_update->new_version ) ? $plugin_update->new_version : null;
+				$package_url   = isset( $plugin_update->package ) ? $plugin_update->package : null;
+
+				if ( $new_version && version_compare( $plugin_data['Version'], $new_version, '>=' ) ) {
+					$update_available = false;
+				} else {
+					$update_available = true;
+				}
 			}
 
 			$result[] = array(
@@ -200,10 +205,15 @@ class Updawa_Updater {
 			$package_url      = null;
 
 			if ( $update_data && isset( $update_data->response[ $slug ] ) ) {
-				$theme_update     = $update_data->response[ $slug ];
-				$update_available = true;
-				$new_version      = isset( $theme_update['new_version'] ) ? $theme_update['new_version'] : null;
-				$package_url      = isset( $theme_update['package'] ) ? $theme_update['package'] : null;
+				$theme_update = $update_data->response[ $slug ];
+				$new_version  = isset( $theme_update['new_version'] ) ? $theme_update['new_version'] : null;
+				$package_url  = isset( $theme_update['package'] ) ? $theme_update['package'] : null;
+
+				if ( $new_version && version_compare( $theme->get( 'Version' ), $new_version, '>=' ) ) {
+					$update_available = false;
+				} else {
+					$update_available = true;
+				}
 			}
 
 			$result[] = array(

@@ -41,11 +41,32 @@ class Updawa_Admin {
 			return $result;
 		}
 
-		$info          = new stdClass();
-		$info->name    = 'UpdaWa';
-		$info->slug    = 'updawa';
-		$info->version = UPDAWA_VERSION;
-		$info->icons   = array(
+		$info                = new stdClass();
+		$info->name          = 'UpdaWa';
+		$info->slug          = 'updawa';
+		$info->version       = UPDAWA_VERSION;
+		$info->author        = '<a href="https://github.com/Designer-Solutions">Designer Solutions sp. z o.o.</a>';
+		$info->author_profile = 'https://github.com/Designer-Solutions';
+		$info->homepage      = 'https://github.com/Designer-Solutions/update-watchdog';
+		$info->requires      = '6.0';
+		$info->tested        = '6.9';
+		$info->requires_php  = '7.0';
+		$info->short_description = __( 'Monitors the availability of updates for WordPress plugins, themes, and core. Exposes results via a REST API secured with a Bearer token.', 'updawa' );
+		$info->sections      = array(
+			'description' => '<p>' . __( 'UpdaWa (Update Watchdog) monitors available updates for your WordPress plugins, themes, and core installation. It provides a clear admin dashboard with update status, SSL certificate expiry monitoring, and a REST API endpoint secured with a Bearer token — perfect for integrating with external monitoring tools and mobile apps.', 'updawa' ) . '</p>'
+				. '<h4>' . __( 'Features', 'updawa' ) . '</h4>'
+				. '<ul>'
+				. '<li>' . __( 'Dashboard with update status for plugins, themes, and WordPress core', 'updawa' ) . '</li>'
+				. '<li>' . __( 'SSL certificate expiry monitoring', 'updawa' ) . '</li>'
+				. '<li>' . __( 'REST API endpoint with Bearer token authentication', 'updawa' ) . '</li>'
+				. '<li>' . __( 'QR code for easy mobile app configuration', 'updawa' ) . '</li>'
+				. '<li>' . __( 'JSON export of the full update status', 'updawa' ) . '</li>'
+				. '</ul>',
+			'changelog'   => '<h4>1.0.5</h4><ul><li>' . __( 'Fixed false positive update notifications for plugins and themes.', 'updawa' ) . '</li></ul>'
+				. '<h4>1.0.4</h4><ul><li>' . __( 'Improved plugin information display.', 'updawa' ) . '</li></ul>'
+				. '<h4>1.0.0</h4><ul><li>' . __( 'Initial release.', 'updawa' ) . '</li></ul>',
+		);
+		$info->icons         = array(
 			'1x' => UPDAWA_PLUGIN_URL . 'assets/images/icon-128x128.png',
 			'2x' => UPDAWA_PLUGIN_URL . 'assets/images/icon-256x256.png',
 		);
